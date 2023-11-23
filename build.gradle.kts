@@ -19,6 +19,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework:spring-webflux:6.1.0")
+
     implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
 
     runtimeOnly("org.postgresql:postgresql")
