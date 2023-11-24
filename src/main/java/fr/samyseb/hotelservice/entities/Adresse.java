@@ -1,13 +1,13 @@
-package fr.samyseb.hotelservice.pojos;
+package fr.samyseb.hotelservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
 
+@Entity
+@Table(name = "adresse")
 @Data
 @Builder
 @AllArgsConstructor

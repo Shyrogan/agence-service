@@ -1,13 +1,15 @@
-package fr.samyseb.hotelservice.pojos;
+package fr.samyseb.hotelservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "client")
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,6 +22,10 @@ public class Client {
     private UUID id;
     private String nom;
     private String prenom;
+    @OneToMany
+    @Getter(onMethod = @__(@JsonIgnore))
+    private List<Reservation> reservations;
+    @OneToOne
     private CarteBancaire carteBancaire;
 
 }

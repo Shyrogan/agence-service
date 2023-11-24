@@ -1,6 +1,7 @@
 package fr.samyseb.hotelservice.pojos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.samyseb.hotelservice.entities.Chambre;
 import fr.samyseb.hotelservice.entities.Hotel;
 import lombok.*;
 

@@ -1,8 +1,8 @@
 package fr.samyseb.hotelservice.services;
 
-import fr.samyseb.hotelservice.pojos.Client;
+import fr.samyseb.hotelservice.entities.Client;
+import fr.samyseb.hotelservice.entities.Reservation;
 import fr.samyseb.hotelservice.pojos.Offre;
-import fr.samyseb.hotelservice.pojos.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

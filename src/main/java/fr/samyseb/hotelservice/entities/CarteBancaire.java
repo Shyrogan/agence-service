@@ -1,10 +1,12 @@
-package fr.samyseb.hotelservice.pojos;
+package fr.samyseb.hotelservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
+@Table(name = "carteBancaire")
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,5 +21,8 @@ public class CarteBancaire {
     private int annee;
     @Column(length = 3)
     private String cryptogramme;
+    @OneToOne
+    @Getter(onMethod = @__(@JsonIgnore))
+    private Client client;
 
 }

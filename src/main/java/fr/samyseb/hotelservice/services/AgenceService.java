@@ -41,7 +41,7 @@ public class AgenceService {
                         ""))
                 .build());
 
-        logger.info("L'identité de l'hôtel à été définie à: %s.".formatted(identity()));
+        logger.info("L'identité de l'agence à été définie à: %s.".formatted(identity()));
     }
 
     /**
@@ -50,7 +50,7 @@ public class AgenceService {
     @PreDestroy
     public void onShutdown() {
         agenceRepository.delete(identity);
-        logger.info("Suppression de l'hôtel dans la liste des hôtels effectuée.");
+        logger.info("Suppression de l'agence dans la liste des hôtels effectuée.");
     }
 
 }
