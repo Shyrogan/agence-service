@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.net.URL;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +22,5 @@ public class Agence {
     private String nom;
     private String motDePasse;
     private URL url;
-    @OneToMany
-    private List<Partenariat> partenariats;
 
 }
