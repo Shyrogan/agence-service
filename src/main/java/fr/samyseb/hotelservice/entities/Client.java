@@ -22,7 +22,7 @@ public class Client {
     private UUID id;
     private String nom;
     private String prenom;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
     @OneToOne(cascade = CascadeType.ALL)

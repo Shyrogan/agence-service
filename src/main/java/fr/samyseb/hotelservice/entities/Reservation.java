@@ -19,11 +19,11 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Agence agence;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Hotel hotel;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Chambre chambre;
     @ManyToOne
     private Client client;
