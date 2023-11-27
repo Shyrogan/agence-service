@@ -25,7 +25,7 @@ public class Client {
     @OneToMany
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CarteBancaire carteBancaire;
 
 }

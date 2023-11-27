@@ -31,6 +31,9 @@ public class Hotel {
     @OneToMany(cascade = CascadeType.REMOVE)
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
+    @Getter(onMethod = @__(@JsonIgnore))
+    private List<Partenariat> partenariats;
     private URL url;
 
 }

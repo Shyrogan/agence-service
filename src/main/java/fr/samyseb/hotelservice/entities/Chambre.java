@@ -16,7 +16,7 @@ import java.util.List;
 @Getter(onMethod = @__(@JsonProperty))
 public class Chambre {
 
-    // On ne génère pas l'id
+
     @Id
     private long numero;
     private float prix;
@@ -24,6 +24,9 @@ public class Chambre {
     @ManyToOne
     @Getter(onMethod = @__(@JsonIgnore))
     private Hotel hotel;
+    @Lob
+    @Getter(onMethod = @__(@JsonIgnore))
+    private byte[] image;
     @OneToMany
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;

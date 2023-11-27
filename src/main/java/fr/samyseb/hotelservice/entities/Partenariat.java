@@ -5,31 +5,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.net.URL;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "agence")
+@Table(name = "partenariat")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter(onMethod = @__(@JsonProperty))
-public class Agence {
+public class Partenariat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String nom;
-    private String motDePasse;
-    private URL url;
-    @OneToMany
-    @Getter(onMethod = @__(@JsonIgnore))
-    @JsonIgnore
-    private List<Reservation> reservations;
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.REMOVE)
-    @Getter(onMethod = @__(@JsonIgnore))
-    private List<Partenariat> partenariats;
 
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
+
+    @ManyToOne
+    @JoinColumn(name = "agence_id")
+    @JsonIgnore
+    private Agence agence;
+
+    private float reduction;
 }

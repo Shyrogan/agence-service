@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import static java.lang.String.format;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,19 @@ public class AgenceService {
 
     @Getter
     private Agence identity;
+
+    /**
+     * Retourne le contenu du header <i>Authorization</i> lors des requêtes
+     * faites vers les hôtels
+     *
+     * @return Le contenu du header authorization
+     */
+    public String authorization() {
+        return format("Basic %s", new String(Base64.getEncoder().encode(
+                format("%s:%s", identity.id(), identity.motDePasse())
+                        .getBytes(StandardCharsets.UTF_8)
+        ), StandardCharsets.UTF_8));
+    }
 
     /**
      * Lors du démarrage de l'application, on récupère l'identité de l'hôtel dans l'environnement,

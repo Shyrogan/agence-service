@@ -1,5 +1,6 @@
 package fr.samyseb.hotelservice.services;
 
+import fr.samyseb.hotelservice.controllers.ReservationController;
 import fr.samyseb.hotelservice.entities.Client;
 import fr.samyseb.hotelservice.entities.Reservation;
 import fr.samyseb.hotelservice.pojos.Offre;
@@ -18,18 +19,14 @@ public class ReservationService {
     private final AgenceService agenceService;
 
     public Reservation reserver(Offre offre, Client fillableClient) {
+        System.out.println(offre);
         return WebClient.create()
                 .post()
                 .uri(format("%s/reservation", offre.hotel().url()))
-                .header("Authorization",
-                        format("Basic %s:%s", agenceService.identity().id(),
-                                agenceService.identity().motDePasse()))
+                .header("Authorization", agenceService.authorization())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(Reservation.builder()
-                        .hotel(offre.hotel())
-                        .chambre(offre.chambre())
-                        .debut(offre.debut())
-                        .fin(offre.fin())
+                .body(Mono.just(ReservationController.ReservationRequest.builder()
+                        .offre(offre)
                         .client(fillableClient)
                         .build()), Reservation.class)
                 .retrieve()

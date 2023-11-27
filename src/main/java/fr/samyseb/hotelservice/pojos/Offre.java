@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class Offre {
 
     private Hotel hotel;
+    private float prixSejour;
     private Chambre chambre;
     private LocalDate debut;
     private LocalDate fin;
