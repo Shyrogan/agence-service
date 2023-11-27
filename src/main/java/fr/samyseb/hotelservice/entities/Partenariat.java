@@ -19,15 +19,10 @@ public class Partenariat {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @ManyToOne
-    @JoinColumn(name = "hotel_id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Hotel hotel;
-
-    @ManyToOne
-    @JoinColumn(name = "agence_id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Agence agence;
-
     private float reduction;
 }

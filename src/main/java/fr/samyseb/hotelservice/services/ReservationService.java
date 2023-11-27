@@ -1,9 +1,9 @@
 package fr.samyseb.hotelservice.services;
 
-import fr.samyseb.hotelservice.controllers.ReservationController;
 import fr.samyseb.hotelservice.entities.Client;
 import fr.samyseb.hotelservice.entities.Reservation;
 import fr.samyseb.hotelservice.pojos.Offre;
+import fr.samyseb.hotelservice.pojos.ReservationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -19,13 +19,12 @@ public class ReservationService {
     private final AgenceService agenceService;
 
     public Reservation reserver(Offre offre, Client fillableClient) {
-        System.out.println(offre);
         return WebClient.create()
                 .post()
                 .uri(format("%s/reservation", offre.hotel().url()))
                 .header("Authorization", agenceService.authorization())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(ReservationController.ReservationRequest.builder()
+                .body(Mono.just(ReservationRequest.builder()
                         .offre(offre)
                         .client(fillableClient)
                         .build()), Reservation.class)

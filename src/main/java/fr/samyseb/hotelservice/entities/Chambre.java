@@ -21,13 +21,13 @@ public class Chambre {
     private long numero;
     private float prix;
     private int places;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @Getter(onMethod = @__(@JsonIgnore))
     private Hotel hotel;
     @Lob
     @Getter(onMethod = @__(@JsonIgnore))
     private byte[] image;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
 
