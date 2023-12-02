@@ -2,7 +2,11 @@ package fr.samyseb.hotelservice.services;
 
 import fr.samyseb.hotelservice.AgenceApplication;
 import fr.samyseb.hotelservice.entities.Agence;
+import fr.samyseb.hotelservice.entities.Hotel;
+import fr.samyseb.hotelservice.entities.Partenariat;
 import fr.samyseb.hotelservice.repositories.AgenceRepository;
+import fr.samyseb.hotelservice.repositories.HotelRepository;
+import fr.samyseb.hotelservice.repositories.PartenariatRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
@@ -16,6 +20,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static java.lang.String.format;
 
@@ -27,6 +36,8 @@ public class AgenceService {
 
     private final Environment environment;
     private final AgenceRepository agenceRepository;
+    private final HotelRepository hotelRepository;
+    private final PartenariatRepository partenariatRepository;
 
     @Getter
     private Agence identity;
@@ -57,8 +68,17 @@ public class AgenceService {
                         environment.getRequiredProperty("server.port", Integer.class),
                         ""))
                 .build());
-
         logger.info("L'identité de l'agence à été définie à: %s.".formatted(identity()));
+
+        var partenariats = StreamSupport.stream(hotelRepository.findAll().spliterator(), false)
+                .map(this::potentielPartenariat)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+        partenariatRepository.saveAll(partenariats);
+        for (var partenariat : partenariats) {
+            logger.info("Un partenariat avec l'hôtel " + partenariat.hotel().nom() + " a été créé !");
+        }
     }
 
     /**
@@ -66,8 +86,22 @@ public class AgenceService {
      */
     @PreDestroy
     public void onShutdown() {
+        partenariatRepository.deleteAllByAgence(identity);
         agenceRepository.delete(identity);
-        logger.info("Suppression de l'agence dans la liste des hôtels effectuée.");
+        logger.info("Suppression de l'agence dans la liste des agences effectuée.");
+    }
+
+    private Optional<Partenariat> potentielPartenariat(Hotel hotel) {
+        var r = new Random();
+        if (r.nextBoolean()) return Optional.empty();
+
+        var taux = r.nextFloat(0.8F, 0.95F);
+        return Optional.of(partenariatRepository.save(Partenariat.builder()
+                .id(UUID.randomUUID())
+                .agence(identity)
+                .hotel(hotel)
+                .reduction(taux)
+                .build()));
     }
 
 }
