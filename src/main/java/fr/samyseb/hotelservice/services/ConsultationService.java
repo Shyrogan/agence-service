@@ -39,24 +39,10 @@ public class ConsultationService {
                         .retrieve()
                         .bodyToMono(Offre[].class)
                         .block())
-                .map(this::reductions)
                 .filter(Objects::nonNull)
                 .flatMap(Arrays::stream)
 
                 .collect(Collectors.toList());
-    }
-
-    private Offre[] reductions(Offre[] offres) {
-        if (offres == null || offres.length == 0) return offres;
-
-        final var hotel = offres[0].hotel();
-        final var partenariat = partenariatRepository.findFirstByHotelAndAgence(hotel, agenceService.identity());
-        if (partenariat == null) return offres;
-
-        for (var o : offres) {
-            o.prixSejour(o.prixSejour() * partenariat.reduction());
-        }
-        return offres;
     }
 
 }
