@@ -2,6 +2,7 @@ package fr.samyseb.hotelservice.services;
 
 import fr.samyseb.hotelservice.pojos.Offre;
 import fr.samyseb.hotelservice.repositories.HotelRepository;
+import fr.samyseb.hotelservice.repositories.PartenariatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,6 +20,7 @@ public class ConsultationService {
 
     private final AgenceService agenceService;
     private final HotelRepository hotelRepository;
+    private final PartenariatRepository partenariatRepository;
 
     public List<Offre> create(LocalDate debut, LocalDate fin, Float prixMin, Float prixMax) {
         return StreamSupport.stream(hotelRepository.findAll().spliterator(), true)
@@ -39,6 +41,7 @@ public class ConsultationService {
                         .block())
                 .filter(Objects::nonNull)
                 .flatMap(Arrays::stream)
+
                 .collect(Collectors.toList());
     }
 
