@@ -25,7 +25,7 @@ public class Client {
     @OneToMany(mappedBy = "client")
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
-    @OneToOne(mappedBy = "numero")
+    @OneToOne
     private CarteBancaire carteBancaire;
 
 }
