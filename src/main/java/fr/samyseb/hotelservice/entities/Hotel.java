@@ -23,15 +23,15 @@ public class Hotel {
     private UUID id;
     private String nom;
     private int etoiles;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private Adresse adresse;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel")
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Chambre> chambres;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel")
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel")
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Partenariat> partenariats;
     private URL url;

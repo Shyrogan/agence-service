@@ -22,10 +22,10 @@ public class Client {
     private UUID id;
     private String nom;
     private String prenom;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client")
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "numero")
     private CarteBancaire carteBancaire;
 
 }
