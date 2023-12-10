@@ -23,8 +23,9 @@ public class ConsultationController {
     public List<Offre> getOffres(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate debut,
                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin,
                                  @RequestParam(required = false) Float prixMin,
-                                 @RequestParam(required = false) Float prixMax) {
-        return consultationService.create(debut, fin, prixMin, prixMax);
+                                 @RequestParam(required = false) Float prixMax,
+                                 @RequestParam(required = false) Integer etoilesMin) {
+        return consultationService.create(debut, fin, prixMin, prixMax,etoilesMin);
     }
 
 

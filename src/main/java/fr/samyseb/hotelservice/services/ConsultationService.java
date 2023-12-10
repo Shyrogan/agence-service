@@ -22,8 +22,9 @@ public class ConsultationService {
     private final HotelRepository hotelRepository;
     private final PartenariatRepository partenariatRepository;
 
-    public List<Offre> create(LocalDate debut, LocalDate fin, Float prixMin, Float prixMax) {
+    public List<Offre> create(LocalDate debut, LocalDate fin, Float prixMin, Float prixMax, Integer etoilesMin) {
         return StreamSupport.stream(hotelRepository.findAll().spliterator(), true)
+                .filter(hotel -> etoilesMin == null || hotel.etoiles() >= etoilesMin)
                 .map(hotel -> WebClient.create()
                         .get()
                         .uri(b -> b.scheme(hotel.url().getProtocol())
